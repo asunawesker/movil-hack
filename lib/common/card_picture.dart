@@ -62,7 +62,7 @@ class CardPicture extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Attach Picture',
+                  'Presiona para tomar la fotografía de la identificación oficial',
                   style: TextStyle(fontSize: 17.0, color: Colors.grey[600]),
                 ),
                 Icon(
