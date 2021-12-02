@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Urgenias',
+      title: 'Urgencias',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -54,9 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<void> presentAlert(BuildContext context, {
-      String title = '', String message = '', Function()? ok}) {
-      return showDialog(
+  Future<void> presentAlert(BuildContext context,
+      {String title = '', String message = '', Function()? ok}) {
+    return showDialog(
         context: context,
         builder: (c) {
           return AlertDialog(
@@ -65,29 +65,29 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-              Container(
-                child: Text('$message'),
-              )
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                'OK',
-                // style: greenText,
-              ),
-              onPressed: ok != null ? ok : Navigator.of(context).pop,
+                Container(
+                  child: Text('$message'),
+                )
+              ],
             ),
-          ],
-        );
-      });
+            actions: <Widget>[
+              TextButton(
+                child: Text(
+                  'OK',
+                  // style: greenText,
+                ),
+                onPressed: ok != null ? ok : Navigator.of(context).pop,
+              ),
+            ],
+          );
+        });
   }
 
-  void presentLoader(BuildContext context, {
-      String text = 'Aguarde...',
+  void presentLoader(BuildContext context,
+      {String text = 'Aguarde...',
       bool barrierDismissible = false,
       bool willPop = true}) {
-      showDialog(
+    showDialog(
         barrierDismissible: barrierDismissible,
         context: context,
         builder: (c) {
@@ -113,286 +113,92 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           );
         });
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF062f75),
-        title: Text('URGENCIAS'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.local_hospital,
-              color: Colors.white,
-            ),
-            onPressed: null
-          )
-        ],
-      ),
-      body: SafeArea(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-        child: Column(
-          children: [
-            Text('Toma una foto a la credencial de elector', style: TextStyle(fontSize: 17.0)),
+        appBar: AppBar(
+          backgroundColor: Color(0xFF062f75),
+          title: Text('URGENCIAS'),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.local_hospital,
+                  color: Colors.white,
+                ),
+                onPressed: null)
+          ],
+        ),
+        body: SafeArea(
+            child: SingleChildScrollView(
+          padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+          child: Column(children: [
+            Text('Toma una foto a la credencial de elector',
+                style: TextStyle(fontSize: 17.0)),
             SizedBox(
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              height: 400,
-              child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                        CardPicture(
-                          onTap: () async {
-                            final String? imagePath =
-                                await Navigator.of(context)
-                                    .push(MaterialPageRoute(
-                                        builder: (_) => TakePhoto(
-                                              camera: _cameraDescription,
-                                            )));
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                height: 400,
+                child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                          CardPicture(
+                            onTap: () async {
+                              final String? imagePath =
+                                  await Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                          builder: (_) => TakePhoto(
+                                                camera: _cameraDescription,
+                                              )));
 
-                            print('imagepath: $imagePath');
-                            if (imagePath != null) {
-                              setState(() {
-                                _images.add(imagePath);
-                              });
-                            }
-                          },
-                        ),
-                        // CardPicture(),
-                        // CardPicture(),
-                      ] +
-                      _images
-                          .map((String path) => CardPicture(
-                                imagePath: path,
-                              ))
-                          .toList()),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            GridView.count(
-              shrinkWrap: true,
-              primary: true,
-              crossAxisCount: 2,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 50.0, top: 50.0),
-                  decoration: BoxDecoration(
-                      color: Color(0xFF317f43),
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(3.0))),
-                  child: RawMaterialButton(
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                    onPressed: () async {
-                      // show loader
-                      presentLoader(context, text: 'Wait...');
-
-                      // calling with dio
-                      var responseDataDio =
-                          await _dioUploadService.uploadPhotos(_images);
-
-                      // calling with http
-                      var responseDataHttp = await _httpUploadService
-                          .uploadPhotos(_images);
-
-                      // hide loader
-                      Navigator.of(context).pop();
-
-                      // showing alert dialogs
-                      await presentAlert(context,
-                          title: 'Success Dio',
-                          message: responseDataDio.toString());
-                      await presentAlert(context,
-                          title: 'Success HTTP',
-                          message: responseDataHttp);
-                    },
-                    child: Center(
-                        child: Text(
-                      'ENVIAR DATOS',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.bold),
-                    )),
-                )),
-                Container(
-                  margin: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 50.0, top: 50.0),
-                  decoration: BoxDecoration(
-                      color: Color(0xFFa52019),
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(3.0))),
-                  child: RawMaterialButton(
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                    onPressed: () async {
-                      // show loader
-                      presentLoader(context, text: 'Wait...');
-
-                      // calling with dio
-                      var responseDataDio =
-                          await _dioUploadService.uploadPhotos(_images);
-
-                      // calling with http
-                      var responseDataHttp = await _httpUploadService
-                          .uploadPhotos(_images);
-
-                      // hide loader
-                      Navigator.of(context).pop();
-
-                      // showing alert dialogs
-                      await presentAlert(context,
-                          title: 'Success Dio',
-                          message: responseDataDio.toString());
-                      await presentAlert(context,
-                          title: 'Success HTTP',
-                          message: responseDataHttp);
-                    },
-                    child: Center(
-                        child: Text(
-                      'ENVIAR DATOS',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.bold),
-                    )),
-                )),
-                Container(
-                  margin: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 50.0, top: 50.0),
-                  decoration: BoxDecoration(
-                      color: Color(0xFFe5be01),
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(3.0))),
-                  child: RawMaterialButton(
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                    onPressed: () async {
-                      // show loader
-                      presentLoader(context, text: 'Wait...');
-
-                      // calling with dio
-                      var responseDataDio =
-                          await _dioUploadService.uploadPhotos(_images);
-
-                      // calling with http
-                      var responseDataHttp = await _httpUploadService
-                          .uploadPhotos(_images);
-
-                      // hide loader
-                      Navigator.of(context).pop();
-
-                      // showing alert dialogs
-                      await presentAlert(context,
-                          title: 'Success Dio',
-                          message: responseDataDio.toString());
-                      await presentAlert(context,
-                          title: 'Success HTTP',
-                          message: responseDataHttp);
-                    },
-                    child: Center(
-                        child: Text(
-                      'ENVIAR DATOS',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.bold),
-                    )),
-                )),
-                Container(
-                  margin: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 50.0, top: 50.0),
-                  decoration: BoxDecoration(
-                      color: Color(0xFF000000),
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(3.0))),
-                  child: RawMaterialButton(
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
-                    onPressed: () async {
-                      // show loader
-                      presentLoader(context, text: 'Wait...');
-
-                      // calling with dio
-                      var responseDataDio =
-                          await _dioUploadService.uploadPhotos(_images);
-
-                      // calling with http
-                      var responseDataHttp = await _httpUploadService
-                          .uploadPhotos(_images);
-
-                      // hide loader
-                      Navigator.of(context).pop();
-
-                      // showing alert dialogs
-                      await presentAlert(context,
-                          title: 'Success Dio',
-                          message: responseDataDio.toString());
-                      await presentAlert(context,
-                          title: 'Success HTTP',
-                          message: responseDataHttp);
-                    },
-                    child: Center(
-                        child: Text(
-                      'ENVIAR DATOS',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.bold),
-                    )),
-                )),
-              ],
-            ),
-            //Padding(
-            //    padding: EdgeInsets.all(10.0),
-            //    child: Row(
-            //      children: [
-            //        Expanded(
-            //          child: Container(
-            //              decoration: BoxDecoration(
-            //                  color: Color(0xFF5675a7),
-            //                  borderRadius:
-            //                      BorderRadius.all(Radius.circular(3.0))),
-            //              child: RawMaterialButton(
-            //                padding: EdgeInsets.symmetric(vertical: 12.0),
-            //                onPressed: () async {
-            //                  // show loader
-            //                  presentLoader(context, text: 'Wait...');
-//
-            //                  // calling with dio
-            //                  var responseDataDio =
-            //                      await _dioUploadService.uploadPhotos(_images);
-//
-            //                  // calling with http
-            //                  var responseDataHttp = await _httpUploadService
-            //                      .uploadPhotos(_images);
-//
-            //                  // hide loader
-            //                  Navigator.of(context).pop();
-//
-            //                  // showing alert dialogs
-            //                  await presentAlert(context,
-            //                      title: 'Success Dio',
-            //                      message: responseDataDio.toString());
-            //                  await presentAlert(context,
-            //                      title: 'Success HTTP',
-            //                      message: responseDataHttp);
-            //                },
-            //                child: Center(
-            //                    child: Text(
-            //                  'ENVIAR DATOS',
-            //                  style: TextStyle(
-            //                      color: Colors.white,
-            //                      fontSize: 17.0,
-            //                      fontWeight: FontWeight.bold),
-            //                )),
-            //              )),
-            //        )
-            //      ],
-            //    )),
-                
-          ],
-        ),
-      ),
-    ));
+                              print('imagepath: $imagePath');
+                              if (imagePath != null) {
+                                setState(() {
+                                  _images.add(imagePath);
+                                });
+                              }
+                            },
+                          ),
+                          // CardPicture(),
+                          // CardPicture(),
+                        ] +
+                        _images
+                            .map((String path) => CardPicture(
+                                  imagePath: path,
+                                ))
+                            .toList())),
+            const SizedBox(height: 30),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: Stack(children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[
+                          Color(0xFF0D47A1),
+                          Color(0xFF1976D2),
+                          Color(0xFF42A5F5),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    primary: Colors.white,
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {},
+                  child: const Text('Gradient'),
+                ),
+              ]),
+            )
+          ]),
+        )));
   }
 }
