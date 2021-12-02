@@ -45,27 +45,39 @@ class _TakePhotoState extends State<TakePhoto> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Take picture'),
+        title: Text('Fotografía identiicación'),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final file = await takePicture();
-          Navigator.of(context).pop(file != null ? file.path : null); 
-        },
-        child: Icon(Icons.camera_alt),
-      ),
-
+      floatingActionButton: SizedBox(
+        height: 100.0,
+        width: 100.0,
+        child: FittedBox(
+          child: FloatingActionButton(        
+            onPressed: () async {
+              final file = await takePicture();
+              Navigator.of(context).pop(file != null ? file.path : null); 
+            },
+            child: Icon(Icons.camera_alt),
+          ),
+        ),
+      ), 
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             // If the Future is complete, display the preview.
-            return Container(
-              // height: MediaQuery.of(context).size.height,
-              child: CameraPreview(_controller),
-            );
+            return Stack(
+            children: <Widget>[
+              Center(
+                child:Transform.scale(
+                      scale: 1 /
+                      (_controller.value.aspectRatio  * mediaSize.aspectRatio),
+                      child: CameraPreview(_controller)
+                   ),)]);
           } else {
             // Otherwise, display a loading indicator.
             return Center(child: CircularProgressIndicator());
