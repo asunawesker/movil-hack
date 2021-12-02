@@ -1,9 +1,7 @@
 import 'package:app_upload/common/card_picture.dart';
 import 'package:app_upload/common/take_photo.dart';
 import 'package:app_upload/service/dio_upload_service.dart';
-import 'package:app_upload/service/http_upload_service.dart';
 import 'package:camera/camera.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -35,7 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final HttpUploadService _httpUploadService = HttpUploadService();
   final DioUploadService _dioUploadService = DioUploadService();
   late CameraDescription _cameraDescription;
   List<String> _images = [];
@@ -226,7 +223,22 @@ class _MyHomePageState extends State<MyHomePage> {
                           primary: Colors.white,
                           textStyle: const TextStyle(fontSize: 20),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          // show loader
+                          presentLoader(context, text: 'Enviando información');
+
+                          // calling with dio
+                          var responseDataDio =
+                              await _dioUploadService.uploadPhotos(_images[0], "urgente");
+
+                          // hide loader
+                          Navigator.of(context).pop();
+
+                          // showing alert dialogs
+                          await presentAlert(context,
+                              title: 'Success Dio',
+                              message: responseDataDio.toString());
+                        },
                         child: const Text('Urgente'),
                       ),
                     ]),
@@ -255,7 +267,22 @@ class _MyHomePageState extends State<MyHomePage> {
                             primary: Colors.white,
                             textStyle: const TextStyle(fontSize: 20),
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                          // show loader
+                          presentLoader(context, text: 'Enviando información');
+
+                          // calling with dio
+                          var responseDataDio =
+                              await _dioUploadService.uploadPhotos(_images[0], "no urgente");
+
+                          // hide loader
+                          Navigator.of(context).pop();
+
+                          // showing alert dialogs
+                          await presentAlert(context,
+                              title: 'Success Dio',
+                              message: responseDataDio.toString());
+                        },
                           child: const Text('No Urgente'),
                         ),
                       ],
@@ -291,7 +318,22 @@ class _MyHomePageState extends State<MyHomePage> {
                           primary: Colors.white,
                           textStyle: const TextStyle(fontSize: 20),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          // show loader
+                          presentLoader(context, text: 'Enviando información');
+
+                          // calling with dio
+                          var responseDataDio =
+                              await _dioUploadService.uploadPhotos(_images[0], "grave");
+
+                          // hide loader
+                          Navigator.of(context).pop();
+
+                          // showing alert dialogs
+                          await presentAlert(context,
+                              title: 'Success Dio',
+                              message: responseDataDio.toString());
+                        },
                         child: const Text('Grave'),
                       ),
                     ]),
@@ -320,7 +362,22 @@ class _MyHomePageState extends State<MyHomePage> {
                             primary: Colors.white,
                             textStyle: const TextStyle(fontSize: 20),
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            // show loader
+                            presentLoader(context, text: 'Enviando información');
+
+                            // calling with dio
+                            var responseDataDio =
+                                await _dioUploadService.uploadPhotos(_images[0], "crítico");
+
+                            // hide loader
+                            Navigator.of(context).pop();
+
+                            // showing alert dialogs
+                            await presentAlert(context,
+                                title: 'Success Dio',
+                                message: responseDataDio.toString());
+                        },
                           child: const Text('Crítico'),
                         ),
                       ],
