@@ -37,11 +37,6 @@ class CardPicture extends StatelessWidget {
                         blurRadius: 2.0,
                       )
                     ]),
-                child: IconButton(
-                    onPressed: () {
-                      print('icon press');
-                    },
-                    icon: Icon(Icons.delete, color: Colors.white)),
               )
             ],
           ),
@@ -62,12 +57,14 @@ class CardPicture extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Presiona para tomar la fotografía de la identificación oficial',
-                  style: TextStyle(fontSize: 17.0, color: Colors.grey[600]),
+                  'Presiona para tomar fotografía',
+                  style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),
+                  textAlign: TextAlign.center,
                 ),
                 Icon(
                   Icons.photo_camera,
                   color: Colors.indigo[400],
+                  size: 40.0,
                 )
               ],
             ),

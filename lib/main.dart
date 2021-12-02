@@ -171,33 +171,160 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ))
                             .toList())),
             const SizedBox(height: 30),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: Stack(children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: <Color>[
-                          Color(0xFF0D47A1),
-                          Color(0xFF1976D2),
-                          Color(0xFF42A5F5),
-                        ],
+            Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Color(0xFF5675a7),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(3.0))),
+                          child: RawMaterialButton(
+                            padding: EdgeInsets.symmetric(vertical: 12.0),
+                            onPressed: () {
+                              setState(() {
+                                _images.removeLast();
+                              });
+                            },
+                            child: Center(
+                                child: Text(
+                              'ELIMINAR IMAGEN',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                          )),
+                    )
+                  ],
+                )),
+            Wrap(
+                spacing: 50,
+                runSpacing: 20, // to apply margin in the main axis of the wrap
+                direction: Axis.horizontal,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Stack(children: <Widget>[
+                      Positioned.fill(
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: <Color>[
+                                Color(0xFF0D47A1),
+                                Color(0xFF1976D2),
+                                Color(0xFF42A5F5),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.all(16.0),
+                          primary: Colors.white,
+                          textStyle: const TextStyle(fontSize: 20),
+                        ),
+                        onPressed: () {},
+                        child: const Text('Gradient'),
+                      ),
+                    ]),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: <Color>[
+                                  Color(0xFF0D47A1),
+                                  Color(0xFF1976D2),
+                                  Color(0xFF42A5F5),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.all(16.0),
+                            primary: Colors.white,
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () {},
+                          child: const Text('Gradient'),
+                        ),
+                      ],
                     ),
+                  )
+                ]),
+            Wrap(
+                spacing: 50,
+                runSpacing: 20,
+                runAlignment: 50,
+                direction: Axis.horizontal,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Stack(children: <Widget>[
+                      Positioned.fill(
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: <Color>[
+                                Color(0xFF0D47A1),
+                                Color(0xFF1976D2),
+                                Color(0xFF42A5F5),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.all(16.0),
+                          primary: Colors.white,
+                          textStyle: const TextStyle(fontSize: 20),
+                        ),
+                        onPressed: () {},
+                        child: const Text('Gradient'),
+                      ),
+                    ]),
                   ),
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(16.0),
-                    primary: Colors.white,
-                    textStyle: const TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () {},
-                  child: const Text('Gradient'),
-                ),
-              ]),
-            )
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned.fill(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: <Color>[
+                                  Color(0xFF0D47A1),
+                                  Color(0xFF1976D2),
+                                  Color(0xFF42A5F5),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.all(16.0),
+                            primary: Colors.white,
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () {},
+                          child: const Text('Gradient'),
+                        ),
+                      ],
+                    ),
+                  )
+                ]),
           ]),
         )));
   }
