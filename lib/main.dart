@@ -9,7 +9,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> presentAlert(BuildContext context,
-      {String title = '', String message = '', Function()? ok}) {
+    {String title = '', String message = '', Function()? ok}) {
     return showDialog(
         context: context,
         builder: (c) {
@@ -72,7 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
               TextButton(
                 child: Text(
                   'OK',
-                  // style: greenText,
                 ),
                 onPressed: ok != null ? ok : Navigator.of(context).pop,
               ),
@@ -172,7 +170,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     Expanded(
                       child: Container(
                           decoration: BoxDecoration(
-                              color: Color(0xFF5675a7),
+                              color: Colors.white30,
+                              border: Border.all(color: Color(0xFF062f75)),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(3.0))),
                           child: RawMaterialButton(
@@ -183,13 +182,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               });
                             },
                             child: Center(
-                                child: Text(
+                              child: Text(
                               'Eliminar imagen',
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontSize: 17.0,
                                   fontWeight: FontWeight.bold),
-                            )),
+                              )),
                           )),
                     )
                   ],
@@ -224,17 +223,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           textStyle: const TextStyle(fontSize: 20),
                         ),
                         onPressed: () async {
-                          // show loader
                           presentLoader(context, text: 'Enviando información');
 
-                          // calling with dio
                           var responseDataDio =
                               await _dioUploadService.uploadPhotos(_images[0], "urgente");
 
-                          // hide loader
                           Navigator.of(context).pop();
 
-                          // showing alert dialogs
                           await presentAlert(context,
                               title: 'Success Dio',
                               message: responseDataDio.toString());
@@ -268,17 +263,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             textStyle: const TextStyle(fontSize: 20),
                           ),
                           onPressed: () async {
-                          // show loader
                           presentLoader(context, text: 'Enviando información');
 
-                          // calling with dio
                           var responseDataDio =
                               await _dioUploadService.uploadPhotos(_images[0], "no urgente");
 
-                          // hide loader
                           Navigator.of(context).pop();
 
-                          // showing alert dialogs
                           await presentAlert(context,
                               title: 'Success Dio',
                               message: responseDataDio.toString());
@@ -319,17 +310,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           textStyle: const TextStyle(fontSize: 20),
                         ),
                         onPressed: () async {
-                          // show loader
                           presentLoader(context, text: 'Enviando información');
 
-                          // calling with dio
                           var responseDataDio =
                               await _dioUploadService.uploadPhotos(_images[0], "grave");
 
-                          // hide loader
                           Navigator.of(context).pop();
 
-                          // showing alert dialogs
                           await presentAlert(context,
                               title: 'Success Dio',
                               message: responseDataDio.toString());
@@ -363,17 +350,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             textStyle: const TextStyle(fontSize: 20),
                           ),
                           onPressed: () async {
-                            // show loader
                             presentLoader(context, text: 'Enviando información');
 
-                            // calling with dio
                             var responseDataDio =
                                 await _dioUploadService.uploadPhotos(_images[0], "crítico");
 
-                            // hide loader
                             Navigator.of(context).pop();
 
-                            // showing alert dialogs
                             await presentAlert(context,
                                 title: 'Success Dio',
                                 message: responseDataDio.toString());
