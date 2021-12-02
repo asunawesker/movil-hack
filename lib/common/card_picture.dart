@@ -21,24 +21,13 @@ class CardPicture extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(4.0)),
             image: DecorationImage(
                 fit: BoxFit.cover, image: FileImage(File(imagePath as String))),
-          ),
+          ),          
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 decoration: BoxDecoration(
-<<<<<<< HEAD
-                    shape: BoxShape.circle,
-                    color: Colors.redAccent,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black,
-                        offset: Offset(3.0, 3.0),
-                        blurRadius: 2.0,
-                      )
-                    ]),
-=======
                   shape: BoxShape.circle,
                   color: Colors.redAccent,
                   boxShadow: [
@@ -49,7 +38,6 @@ class CardPicture extends StatelessWidget {
                     )
                   ]
                 ),
->>>>>>> 50065d0fee6c07312299250c6dc6cb0bd8d3f936
               )
             ],
           ),

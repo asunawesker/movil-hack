@@ -3,6 +3,7 @@ import 'package:app_upload/common/take_photo.dart';
 import 'package:app_upload/service/dio_upload_service.dart';
 import 'package:app_upload/service/http_upload_service.dart';
 import 'package:camera/camera.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -121,21 +122,18 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           backgroundColor: Color(0xFF062f75),
           title: Text('URGENCIAS'),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.local_hospital,
-                  color: Colors.white,
-                ),
-                onPressed: null)
-          ],
+          leading: 
+            Icon(
+              Icons.local_hospital,
+              color: Colors.white,
+              size: 24.0,
+            ), 
+          titleSpacing: 0,
         ),
         body: SafeArea(
             child: SingleChildScrollView(
           padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
           child: Column(children: [
-            Text('Toma una foto a la credencial de elector',
-                style: TextStyle(fontSize: 17.0)),
             SizedBox(
               height: 20,
             ),
@@ -143,6 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 height: 400,
                 child: ListView(
+                    shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     children: [
                           CardPicture(
@@ -162,15 +161,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               }
                             },
                           ),
-                          // CardPicture(),
-                          // CardPicture(),
                         ] +
                         _images
                             .map((String path) => CardPicture(
                                   imagePath: path,
                                 ))
                             .toList())),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Row(
@@ -190,7 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             },
                             child: Center(
                                 child: Text(
-                              'ELIMINAR IMAGEN',
+                              'Eliminar imagen',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 17.0,
@@ -324,7 +321,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             textStyle: const TextStyle(fontSize: 20),
                           ),
                           onPressed: () {},
-                          child: const Text('Critico'),
+                          child: const Text('Crítico'),
                         ),
                       ],
                     ),
