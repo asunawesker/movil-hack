@@ -200,10 +200,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     )
                   ],
                 )),
-            Wrap(
-                spacing: 50,
-                runSpacing: 20, // to apply margin in the main axis of the wrap
-                direction: Axis.horizontal,
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),
@@ -213,9 +214,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               colors: <Color>[
-                                Color(0xFF0D47A1),
-                                Color(0xFF1976D2),
-                                Color(0xFF42A5F5),
+                                Color(0xFFC62828),
+                                Color(0xFFD32F2F),
+                                Color(0xFFE53935),
                               ],
                             ),
                           ),
@@ -223,12 +224,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.only(
+                              left: 45, right: 45, bottom: 25, top: 25),
                           primary: Colors.white,
                           textStyle: const TextStyle(fontSize: 20),
                         ),
                         onPressed: () {},
-                        child: const Text('Gradient'),
+                        child: const Text('Urgente'),
                       ),
                     ]),
                   ),
@@ -241,9 +243,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                 colors: <Color>[
-                                  Color(0xFF0D47A1),
-                                  Color(0xFF1976D2),
-                                  Color(0xFF42A5F5),
+                                  Color(0xFF2E7D32),
+                                  Color(0xFF388E3C),
+                                  Color(0xFF43A047),
                                 ],
                               ),
                             ),
@@ -251,22 +253,23 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.only(
+                                left: 28, right: 27, bottom: 25, top: 25),
                             primary: Colors.white,
                             textStyle: const TextStyle(fontSize: 20),
                           ),
                           onPressed: () {},
-                          child: const Text('Gradient'),
+                          child: const Text('No Urgente'),
                         ),
                       ],
                     ),
                   )
                 ]),
-            Wrap(
-                spacing: 50,
-                runSpacing: 20,
-                runAlignment: 50,
-                direction: Axis.horizontal,
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),
@@ -276,9 +279,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               colors: <Color>[
-                                Color(0xFF0D47A1),
-                                Color(0xFF1976D2),
-                                Color(0xFF42A5F5),
+                                Color(0xFFF57F17),
+                                Color(0xFFF57F17),
+                                Color(0xFFF57F17),
                               ],
                             ),
                           ),
@@ -286,12 +289,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.only(
+                              left: 55, right: 55, bottom: 25, top: 25),
                           primary: Colors.white,
                           textStyle: const TextStyle(fontSize: 20),
                         ),
                         onPressed: () {},
-                        child: const Text('Gradient'),
+                        child: const Text('Grave'),
                       ),
                     ]),
                   ),
@@ -304,9 +308,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                 colors: <Color>[
-                                  Color(0xFF0D47A1),
-                                  Color(0xFF1976D2),
-                                  Color(0xFF42A5F5),
+                                  Color(0xFF000000),
+                                  Color(0xF0000000),
+                                  Color(0xF0000000),
                                 ],
                               ),
                             ),
@@ -314,12 +318,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.only(
+                                left: 50, right: 50, bottom: 25, top: 25),
                             primary: Colors.white,
                             textStyle: const TextStyle(fontSize: 20),
                           ),
                           onPressed: () {},
-                          child: const Text('Gradient'),
+                          child: const Text('Critico'),
                         ),
                       ],
                     ),
