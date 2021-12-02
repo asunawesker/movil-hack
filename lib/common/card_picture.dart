@@ -28,6 +28,7 @@ class CardPicture extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
+<<<<<<< HEAD
                     shape: BoxShape.circle,
                     color: Colors.redAccent,
                     boxShadow: [
@@ -37,6 +38,18 @@ class CardPicture extends StatelessWidget {
                         blurRadius: 2.0,
                       )
                     ]),
+=======
+                  shape: BoxShape.circle,
+                  color: Colors.redAccent,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black,
+                      offset: Offset(3.0, 3.0),
+                      blurRadius: 2.0, 
+                    )
+                  ]
+                ),
+>>>>>>> 50065d0fee6c07312299250c6dc6cb0bd8d3f936
               )
             ],
           ),
