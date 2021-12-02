@@ -144,6 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               height: 400,
               child: ListView(
+                shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   children: [
                         CardPicture(
@@ -175,6 +176,35 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 20.0,
             ),
+            Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Color(0xFF5675a7),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(3.0))),
+                          child: RawMaterialButton(
+                            padding: EdgeInsets.symmetric(vertical: 12.0),
+                            onPressed: () {
+                              setState(() {
+                                _images.removeLast();
+                              });
+                            },
+                            child: Center(
+                                child: Text(
+                              'ELIMINAR IMAGEN',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                          )),
+                    )
+                  ],
+                )),
             GridView.count(
               shrinkWrap: true,
               primary: true,
