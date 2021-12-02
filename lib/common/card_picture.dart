@@ -22,26 +22,26 @@ class CardPicture extends StatelessWidget {
             image: DecorationImage(
                 fit: BoxFit.cover, image: FileImage(File(imagePath as String))),
           ),
-          
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.redAccent,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black,
-                      offset: Offset(3.0, 3.0),
-                      blurRadius: 2.0, 
-                    )
-                  ]
-                ),
-                child: IconButton(onPressed: (){
-                print('icon press');
-              }, icon: Icon(Icons.delete, color: Colors.white)),
+                    shape: BoxShape.circle,
+                    color: Colors.redAccent,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black,
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 2.0,
+                      )
+                    ]),
+                child: IconButton(
+                    onPressed: () {
+                      print('icon press');
+                    },
+                    icon: Icon(Icons.delete, color: Colors.white)),
               )
             ],
           ),
