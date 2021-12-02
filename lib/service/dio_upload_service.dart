@@ -3,12 +3,12 @@ import 'package:dio/dio.dart';
 
 class DioUploadService {
   
-  Future<dynamic> uploadPhotos(List<String> paths) async {
-    List<MultipartFile> files = [];
-    for(var path in paths) files.add(await MultipartFile.fromFile(path));
+  Future<dynamic> uploadPhotos(String path, String code) async {
+    MultipartFile photo = await MultipartFile.fromFile(path);
     
     var formData = FormData.fromMap({
-      'files': files
+      'files': photo,
+      'code': code,
     });
 
     var response = await Dio().post('http://10.0.0.101:5000/profile/upload-mutiple', data: formData);

@@ -1,7 +1,6 @@
 import 'package:app_upload/common/card_picture.dart';
 import 'package:app_upload/common/take_photo.dart';
 import 'package:app_upload/service/dio_upload_service.dart';
-import 'package:app_upload/service/http_upload_service.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +9,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,7 +32,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final HttpUploadService _httpUploadService = HttpUploadService();
   final DioUploadService _dioUploadService = DioUploadService();
   late CameraDescription _cameraDescription;
   List<String> _images = [];
@@ -74,7 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
               TextButton(
                 child: Text(
                   'OK',
-                  // style: greenText,
                 ),
                 onPressed: ok != null ? ok : Navigator.of(context).pop,
               ),
@@ -120,22 +116,18 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xFF062f75),
-          title: Text('URGENCIAS'),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.local_hospital,
-                  color: Colors.white,
-                ),
-                onPressed: null)
-          ],
+          title: Text('Halcones UV'),
+          leading: Icon(
+            Icons.local_hospital,
+            color: Colors.white,
+            size: 24.0,
+          ),
+          titleSpacing: 0,
         ),
         body: SafeArea(
             child: SingleChildScrollView(
           padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
           child: Column(children: [
-            Text('Toma una foto a la credencial de elector',
-                style: TextStyle(fontSize: 17.0)),
             SizedBox(
               height: 20,
             ),
@@ -143,6 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 height: 400,
                 child: ListView(
+                    shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     children: [
                           CardPicture(
@@ -162,15 +155,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               }
                             },
                           ),
-                          // CardPicture(),
-                          // CardPicture(),
                         ] +
                         _images
                             .map((String path) => CardPicture(
                                   imagePath: path,
                                 ))
                             .toList())),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Row(
@@ -178,7 +169,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     Expanded(
                       child: Container(
                           decoration: BoxDecoration(
-                              color: Color(0xFF5675a7),
+                              color: Colors.white30,
+                              border: Border.all(color: Color(0xFF062f75)),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(3.0))),
                           child: RawMaterialButton(
@@ -190,9 +182,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             },
                             child: Center(
                                 child: Text(
-                              'ELIMINAR IMAGEN',
+                              'Eliminar imagen',
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.blueGrey,
                                   fontSize: 17.0,
                                   fontWeight: FontWeight.bold),
                             )),
@@ -222,16 +214,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              left: 45, right: 45, bottom: 25, top: 25),
-                          primary: Colors.white,
-                          textStyle: const TextStyle(fontSize: 20),
-                        ),
-                        onPressed: () {},
-                        child: const Text('Urgente'),
-                      ),
                     ]),
                   ),
                   ClipRRect(
@@ -250,16 +232,6 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                           ),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 28, right: 27, bottom: 25, top: 25),
-                            primary: Colors.white,
-                            textStyle: const TextStyle(fontSize: 20),
-                          ),
-                          onPressed: () {},
-                          child: const Text('No Urgente'),
                         ),
                       ],
                     ),
@@ -287,16 +259,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              left: 55, right: 55, bottom: 25, top: 25),
-                          primary: Colors.white,
-                          textStyle: const TextStyle(fontSize: 20),
-                        ),
-                        onPressed: () {},
-                        child: const Text('Grave'),
-                      ),
                     ]),
                   ),
                   ClipRRect(
@@ -315,16 +277,6 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                           ),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(
-                                left: 50, right: 50, bottom: 25, top: 25),
-                            primary: Colors.white,
-                            textStyle: const TextStyle(fontSize: 20),
-                          ),
-                          onPressed: () {},
-                          child: const Text('Critico'),
                         ),
                       ],
                     ),
