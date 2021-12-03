@@ -1,22 +1,21 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-import 'package:dio/dio.dart';
+class HttpUploadService {
+  Future<String> uploadPhotos(String path, String color) async {
+    String result = '';
+    Uri uri = Uri.parse('http://3.88.248.37/upload/');
+    http.MultipartRequest request = http.MultipartRequest('POST', uri);
+    request.fields['color'] = color;
+    request.files.add(await http.MultipartFile.fromPath('files', path));
 
-class DioUploadService {
-  
-  Future<dynamic> uploadPhotos(String path, String code) async {
-    MultipartFile photo = await MultipartFile.fromFile(path);
-    
-    var formData = FormData.fromMap({
-      'files': photo,
-      'code': code,
+    request.send().then((response) {
+      if (response.statusCode == 200) {
+        result = "Información enviada";
+      } else {
+        result = "Información no válida, vuelva a tomar la fotografía";
+      }
     });
-
-    var response = await Dio().post('http://10.0.0.101:5000/profile/upload-mutiple', data: formData);
-    print('\n\n');
-    print('RESPONSE WITH DIO');
-    print(response.data);
-    print('\n\n');
-    return response.data;
+    return result;
   }
-
 }

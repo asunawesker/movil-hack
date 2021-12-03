@@ -3,6 +3,7 @@ import 'package:app_upload/common/take_photo.dart';
 import 'package:app_upload/service/dio_upload_service.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -34,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool isButtonActive = false;
   String? imagePath = "";
-  final DioUploadService _dioUploadService = DioUploadService();
+  final HttpUploadService service = HttpUploadService();
   late CameraDescription _cameraDescription;
   List<String> _images = [];
 
@@ -112,6 +113,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           );
         });
+  }
+
+  postData() async {
+    var response = await http.post(
+        Uri.parse("https://jsonplaceholder.typeicode.com/posts"),
+        body: {"id": "1", "name": "Irais"});
+
+    print(response);
   }
 
   @override
@@ -219,20 +228,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             ElevatedButton(
                               child: const Text(''),
-                              onPressed: (!_images.isEmpty)
+                              onPressed: (_images.isNotEmpty)
                                   ? () async {
-                                      presentLoader(context,
-                                          text: 'Enviando información');
-
-                                      var responseDataDio =
-                                          await _dioUploadService.uploadPhotos(
-                                              _images[0], "no urgente");
+                                      var response = await service.uploadPhotos(
+                                          _images[0], "2");
 
                                       Navigator.of(context).pop();
 
                                       await presentAlert(context,
-                                          title: 'Success Dio',
-                                          message: responseDataDio.toString());
+                                          title: 'Información enviada',
+                                          message: response.toString());
                                     }
                                   : null,
                               style: ElevatedButton.styleFrom(
@@ -261,22 +266,16 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                               ElevatedButton(
                                 child: const Text(''),
-                                onPressed: (!_images.isEmpty)
+                                onPressed: (_images.isNotEmpty)
                                     ? () async {
-                                        presentLoader(context,
-                                            text: 'Enviando información');
-
-                                        var responseDataDio =
-                                            await _dioUploadService
-                                                .uploadPhotos(
-                                                    _images[0], "no urgente");
+                                        var response = await service
+                                            .uploadPhotos(_images[0], "1");
 
                                         Navigator.of(context).pop();
 
                                         await presentAlert(context,
-                                            title: 'Success Dio',
-                                            message:
-                                                responseDataDio.toString());
+                                            title: 'Información enviada',
+                                            message: response.toString());
                                       }
                                     : null,
                                 style: ElevatedButton.styleFrom(
@@ -312,20 +311,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             ElevatedButton(
                               child: const Text(''),
-                              onPressed: (!_images.isEmpty)
+                              onPressed: (_images.isNotEmpty)
                                   ? () async {
-                                      presentLoader(context,
-                                          text: 'Enviando información');
-
-                                      var responseDataDio =
-                                          await _dioUploadService.uploadPhotos(
-                                              _images[0], "no urgente");
+                                      var response = await service.uploadPhotos(
+                                          _images[0], "2");
 
                                       Navigator.of(context).pop();
 
                                       await presentAlert(context,
-                                          title: 'Success Dio',
-                                          message: responseDataDio.toString());
+                                          title: 'Información enviada',
+                                          message: response.toString());
                                     }
                                   : null,
                               style: ElevatedButton.styleFrom(
@@ -354,22 +349,16 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                               ElevatedButton(
                                 child: const Text(''),
-                                onPressed: (!_images.isEmpty)
+                                onPressed: (_images.isNotEmpty)
                                     ? () async {
-                                        presentLoader(context,
-                                            text: 'Enviando información');
-
-                                        var responseDataDio =
-                                            await _dioUploadService
-                                                .uploadPhotos(
-                                                    _images[0], "no urgente");
+                                        var response = await service
+                                            .uploadPhotos(_images[0], "4");
 
                                         Navigator.of(context).pop();
 
                                         await presentAlert(context,
-                                            title: 'Success Dio',
-                                            message:
-                                                responseDataDio.toString());
+                                            title: 'Información enviada',
+                                            message: response.toString());
                                       }
                                     : null,
                                 style: ElevatedButton.styleFrom(
