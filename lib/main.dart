@@ -219,9 +219,20 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             ElevatedButton(
                               child: const Text(''),
-                              onPressed: isButtonActive
-                                  ? () {
-                                      setState(() => isButtonActive = false);
+                              onPressed: (!_images.isEmpty)
+                                  ? () async {
+                                      presentLoader(context,
+                                          text: 'Enviando información');
+
+                                      var responseDataDio =
+                                          await _dioUploadService.uploadPhotos(
+                                              _images[0], "no urgente");
+
+                                      Navigator.of(context).pop();
+
+                                      await presentAlert(context,
+                                          title: 'Success Dio',
+                                          message: responseDataDio.toString());
                                     }
                                   : null,
                               style: ElevatedButton.styleFrom(
@@ -250,9 +261,22 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                               ElevatedButton(
                                 child: const Text(''),
-                                onPressed: isButtonActive
-                                    ? () {
-                                        setState(() => isButtonActive = false);
+                                onPressed: (!_images.isEmpty)
+                                    ? () async {
+                                        presentLoader(context,
+                                            text: 'Enviando información');
+
+                                        var responseDataDio =
+                                            await _dioUploadService
+                                                .uploadPhotos(
+                                                    _images[0], "no urgente");
+
+                                        Navigator.of(context).pop();
+
+                                        await presentAlert(context,
+                                            title: 'Success Dio',
+                                            message:
+                                                responseDataDio.toString());
                                       }
                                     : null,
                                 style: ElevatedButton.styleFrom(
@@ -288,9 +312,20 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             ElevatedButton(
                               child: const Text(''),
-                              onPressed: isButtonActive
-                                  ? () {
-                                      setState(() => isButtonActive = false);
+                              onPressed: (!_images.isEmpty)
+                                  ? () async {
+                                      presentLoader(context,
+                                          text: 'Enviando información');
+
+                                      var responseDataDio =
+                                          await _dioUploadService.uploadPhotos(
+                                              _images[0], "no urgente");
+
+                                      Navigator.of(context).pop();
+
+                                      await presentAlert(context,
+                                          title: 'Success Dio',
+                                          message: responseDataDio.toString());
                                     }
                                   : null,
                               style: ElevatedButton.styleFrom(
