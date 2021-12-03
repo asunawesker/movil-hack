@@ -1,9 +1,22 @@
+import 'dart:io';
+
 import 'package:app_upload/common/card_picture.dart';
 import 'package:app_upload/common/take_photo.dart';
 import 'package:app_upload/service/dio_upload_service.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart' as p;
+import 'dart:io';
+import 'dart:typed_data';
 
 void main() {
   runApp(MyApp());
@@ -34,10 +47,32 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool isButtonActive = false;
-  String? imagePath = "";
-  final HttpUploadService service = HttpUploadService();
+  //final DioUploadServiceservice = DioUploadService();
   late CameraDescription _cameraDescription;
   List<String> _images = [];
+
+  get dio => null;
+
+  get response => null;
+  late Uint8List bytes;
+  set response(response) {}
+
+  Future<String> uploadPhotos(String imagePath, String color) async {
+    print(imagePath);
+    Uri uri = Uri.parse('http://3.86.209.36:5000/upload');
+    http.MultipartRequest request = http.MultipartRequest('POST', uri);
+    Map<String, String> headers = {"Content-type": "multipart/form-data"};
+    request.files.add(http.MultipartFile('file',
+        File(imagePath).readAsBytes().asStream(), File(imagePath).lengthSync(),
+        filename: imagePath.split("/").last));
+    request.headers.addAll(headers);
+    request.fields.addAll({"color": color});
+    http.StreamedResponse response = await request.send();
+    var responseBytes = await response.stream.toBytes();
+    var responseString = utf8.decode(responseBytes);
+    print(responseString);
+    return responseString;
+  }
 
   @override
   void initState() {
@@ -230,14 +265,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: const Text(''),
                               onPressed: (_images.isNotEmpty)
                                   ? () async {
-                                      var response = await service.uploadPhotos(
-                                          _images[0], "2");
-
-                                      Navigator.of(context).pop();
-
-                                      await presentAlert(context,
-                                          title: 'Información enviada',
-                                          message: response.toString());
+                                      uploadPhotos(_images[0], "1");
                                     }
                                   : null,
                               style: ElevatedButton.styleFrom(
@@ -268,14 +296,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: const Text(''),
                                 onPressed: (_images.isNotEmpty)
                                     ? () async {
-                                        var response = await service
-                                            .uploadPhotos(_images[0], "1");
-
-                                        Navigator.of(context).pop();
-
-                                        await presentAlert(context,
-                                            title: 'Información enviada',
-                                            message: response.toString());
+                                        uploadPhotos(_images[0], "3");
                                       }
                                     : null,
                                 style: ElevatedButton.styleFrom(
@@ -313,14 +334,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: const Text(''),
                               onPressed: (_images.isNotEmpty)
                                   ? () async {
-                                      var response = await service.uploadPhotos(
-                                          _images[0], "2");
-
-                                      Navigator.of(context).pop();
-
-                                      await presentAlert(context,
-                                          title: 'Información enviada',
-                                          message: response.toString());
+                                      uploadPhotos(_images[0], "2");
                                     }
                                   : null,
                               style: ElevatedButton.styleFrom(
@@ -351,14 +365,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: const Text(''),
                                 onPressed: (_images.isNotEmpty)
                                     ? () async {
-                                        var response = await service
-                                            .uploadPhotos(_images[0], "4");
-
-                                        Navigator.of(context).pop();
-
-                                        await presentAlert(context,
-                                            title: 'Información enviada',
-                                            message: response.toString());
+                                        uploadPhotos(_images[0], "4");
                                       }
                                     : null,
                                 style: ElevatedButton.styleFrom(
@@ -372,4 +379,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ])
                 ]))));
   }
+}
+
+class FormData {
+  FormData.from(Map<String, dynamic> map);
 }

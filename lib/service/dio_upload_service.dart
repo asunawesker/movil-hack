@@ -1,21 +1,25 @@
-import 'dart:convert';
+/*import 'dart:io';
 import 'package:http/http.dart' as http;
 
-class HttpUploadService {
-  Future<String> uploadPhotos(String path, String color) async {
-    String result = '';
-    Uri uri = Uri.parse('http://3.88.248.37/upload/');
-    http.MultipartRequest request = http.MultipartRequest('POST', uri);
-    request.fields['color'] = color;
-    request.files.add(await http.MultipartFile.fromPath('files', path));
-
-    request.send().then((response) {
-      if (response.statusCode == 200) {
-        result = "Información enviada";
-      } else {
-        result = "Información no válida, vuelva a tomar la fotografía";
-      }
-    });
-    return result;
-  }
+ocr(File image, String color) async {
+  //Uri
+  var uri = Uri.parse('http://3.88.248.37/upload/');
+  //Request fields endpoint
+  var request = new http.MultipartRequest("POST", uri)
+    ..fields['color'] = color
+   // ..files.add(new http.MultipartFile. fromPath(
+        'package',
+        'build/package.tar.gz',
+   //     contentType: new MediaType('application', 'x-tar'),
+    ));
+    //files.add(new http.MultipartFile.   fromBytes('file', await File.fromUri(uri).readAsBytes(), contentType: new MediaType('image', 'jpeg')))
+  
+  //Send request
+  var response = await request.send();
+  if (response.statusCode == 200) print('Uploaded!');
 }
+*/
+
+
+
+//('http://3.88.248.37/upload/');
