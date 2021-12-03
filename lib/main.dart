@@ -36,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final DioUploadService _dioUploadService = DioUploadService();
   late CameraDescription _cameraDescription;
   List<String> _images = [];
+
   @override
   void initState() {
     super.initState();
@@ -125,235 +126,212 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           titleSpacing: 0,
         ),
-        body: SafeArea
-          (
-            child: SingleChildScrollView
-              (
+        body: SafeArea(
+            child: SingleChildScrollView(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: Column(
-                  children:
-                    [
-                      SizedBox
-                            (
-                              height: 20,
-                            ),
-                      Container
-                            (
-                              padding: EdgeInsets.symmetric(horizontal: 10.0),
-                              height: 400,
-                              child: ListView
-                                      (
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        children:
-                                            [
-                                              CardPicture(onTap: () async {
-                                                String? imagePath = await Navigator.of(context).push(MaterialPageRoute(
+                child: Column(children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      height: 400,
+                      child: ListView(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                                CardPicture(
+                                  onTap: () async {
+                                    final String? imagePath =
+                                        await Navigator.of(context).push(
+                                            MaterialPageRoute(
                                                 builder: (_) => TakePhoto(
-                                                  camera: _cameraDescription
-                                                  )));
-                                                  }),
-                                                const SizedBox(height: 20),
-                                                Padding(
-                                                  padding: EdgeInsets.all(10.0),
-                                                  child: Row
-                                                    (
-                                                      children: [
-                                                      Expanded
-                                                        (
-                                                          child: Container
-                                                            (
-                                                            decoration: BoxDecoration
-                                                              (
-                                                                color: Colors.white30,
-                                                                border: Border.all
-                                                                  (color: Color(0xFF062f75)
-                                                                ),
-                                                                borderRadius: BorderRadius.all(
-                                                                  Radius.circular(3.0))
-                                                              ),
-                                                              child: RawMaterialButton
-                                                                (
-                                                                  padding: EdgeInsets.symmetric
-                                                                    (vertical: 12.0),
-                                                                  onPressed: ()
-                                                                    {
-                                                                      setState(()
-                                                                        {
-                                                                          _images.removeLast();
-                                                                        });
-                                                                    },
-                                                                  child: Center(
-                                                                    child: Text('Eliminar imagen',
-                                                                                  style: TextStyle
-                                                                                    (
-                                                                                      color: Colors.black,
-                                                                                      fontSize: 17.0,
-                                                                                      fontWeight: FontWeight.bold
-                                                                                    ),
-                                                                                )
-                                                                                ),
-                                                                  )
-                                                            ),
-                                                          )
-                                                        ],
-                                                      )),
-                                                      SizedBox(
-                                                        height: 20,
-                                                      ),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(4),
-                                    child: Stack(children: <Widget>[
-                                      Positioned.fill(
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: <Color>[
-                                                Color(0xFFC62828),
-                                                Color(0xFFD32F2F),
-                                                Color(0xFFE53935),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      ElevatedButton(
-                                        child: const Text(''),
-                                        onPressed: isButtonActive
-                                            ? () {
-                                                setState(() =>
-                                                    isButtonActive = false);
-                                              }
-                                            : null,
-                                        style: ElevatedButton.styleFrom(
-                                          padding: const EdgeInsets.only(
-                                              left: 70,
-                                              right: 70,
-                                              bottom: 25,
-                                              top: 25),
-                                        ),
-                                      ),
-                                    ]),
+                                                    camera:
+                                                        _cameraDescription)));
+                                    print('imagepath: $imagePath');
+                                    if (imagePath != null) {
+                                      setState(() {
+                                        _images.add(imagePath);
+                                      });
+                                    }
+                                  },
+                                ),
+                              ] +
+                              _images
+                                  .map((String path) => CardPicture(
+                                        imagePath: path,
+                                      ))
+                                  .toList())),
+                  const SizedBox(height: 20),
+                  Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white30,
+                                    border:
+                                        Border.all(color: Color(0xFF062f75)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(3.0))),
+                                child: RawMaterialButton(
+                                  padding: EdgeInsets.symmetric(vertical: 12.0),
+                                  onPressed: () {
+                                    setState(() {
+                                      _images.removeLast();
+                                    });
+                                  },
+                                  child: Center(
+                                      child: Text(
+                                    'Eliminar imagen',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 17.0,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                                )),
+                          )
+                        ],
+                      )),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: Stack(children: <Widget>[
+                            Positioned.fill(
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: <Color>[
+                                      Color(0xFFC62828),
+                                      Color(0xFFD32F2F),
+                                      Color(0xFFE53935),
+                                    ],
                                   ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(4),
-                                    child: Stack(
-                                      children: <Widget>[
-                                        Positioned.fill(
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: <Color>[
-                                                  Color(0xFF2E7D32),
-                                                  Color(0xFF388E3C),
-                                                  Color(0xFF43A047),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        ElevatedButton(
-                                          child: const Text(''),
-                                          onPressed: isButtonActive
-                                              ? () {
-                                                  setState(() =>
-                                                      isButtonActive = false);
-                                                }
-                                              : null,
-                                          style: ElevatedButton.styleFrom(
-                                            padding: const EdgeInsets.only(
-                                                left: 70,
-                                                right: 70,
-                                                bottom: 25,
-                                                top: 25),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ]),
-                            SizedBox(
-                              height: 20,
+                                ),
+                              ),
                             ),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(4),
-                                    child: Stack(children: <Widget>[
-                                      Positioned.fill(
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: <Color>[
-                                                Color(0xFFF57F17),
-                                                Color(0xFFF57F17),
-                                                Color(0xFFF57F17),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      ElevatedButton(
-                                        child: const Text(''),
-                                        onPressed: isButtonActive
-                                            ? () {
-                                                setState(() =>
-                                                    isButtonActive = false);
-                                              }
-                                            : null,
-                                        style: ElevatedButton.styleFrom(
-                                          padding: const EdgeInsets.only(
-                                              left: 70,
-                                              right: 70,
-                                              bottom: 25,
-                                              top: 25),
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(4),
-                                    child: Stack(
-                                      children: <Widget>[
-                                        Positioned.fill(
-                                          child: Container(
-                                            decoration: const BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: <Color>[
-                                                  Color(0xFF000000),
-                                                  Color(0xF0000000),
-                                                  Color(0xF0000000),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        ElevatedButton(
-                                          child: const Text(''),
-                                          onPressed: isButtonActive
-                                              ? () {
-                                                  setState(() =>
-                                                      isButtonActive = false);
-                                                }
-                                              : null,
-                                          style: ElevatedButton.styleFrom(
-                                            padding: const EdgeInsets.only(
-                                                left: 70,
-                                                right: 70,
-                                                bottom: 25,
-                                                top: 25),
-                                          ),
-                                        ),
+                            ElevatedButton(
+                              child: const Text(''),
+                              onPressed: isButtonActive
+                                  ? () {
+                                      setState(() => isButtonActive = false);
+                                    }
+                                  : null,
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.only(
+                                    left: 70, right: 70, bottom: 25, top: 25),
+                              ),
+                            ),
+                          ]),
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: Stack(
+                            children: <Widget>[
+                              Positioned.fill(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: <Color>[
+                                        Color(0xFF2E7D32),
+                                        Color(0xFF388E3C),
+                                        Color(0xFF43A047),
                                       ],
                                     ),
-                                  )
-                                ])]))]))));
-
+                                  ),
+                                ),
+                              ),
+                              ElevatedButton(
+                                child: const Text(''),
+                                onPressed: isButtonActive
+                                    ? () {
+                                        setState(() => isButtonActive = false);
+                                      }
+                                    : null,
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.only(
+                                      left: 70, right: 70, bottom: 25, top: 25),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ]),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: Stack(children: <Widget>[
+                            Positioned.fill(
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: <Color>[
+                                      Color(0xFFF57F17),
+                                      Color(0xFFF57F17),
+                                      Color(0xFFF57F17),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            ElevatedButton(
+                              child: const Text(''),
+                              onPressed: isButtonActive
+                                  ? () {
+                                      setState(() => isButtonActive = false);
+                                    }
+                                  : null,
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.only(
+                                    left: 70, right: 70, bottom: 25, top: 25),
+                              ),
+                            ),
+                          ]),
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: Stack(
+                            children: <Widget>[
+                              Positioned.fill(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: <Color>[
+                                        Color(0xFF000000),
+                                        Color(0xF0000000),
+                                        Color(0xF0000000),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              ElevatedButton(
+                                child: const Text(''),
+                                onPressed: isButtonActive
+                                    ? () {
+                                        setState(() => isButtonActive = false);
+                                      }
+                                    : null,
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.only(
+                                      left: 70, right: 70, bottom: 25, top: 25),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ])
+                ]))));
   }
 }
