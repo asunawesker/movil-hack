@@ -1,16 +1,7 @@
-# app_upload
+# Track 3 - ¿Cómo agilizar la atención de los pacientes?
 
-A new Flutter project.
+## #3 - HALCONES CON H
 
-## Getting Started
+Aplicación móvil hecha en **flutter**, consume api hecha en flask.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+App que busca ser un apoyo como registro de pacientes en el área de urgencias para que aquellos empleados que están un paso antes de la atención médica en urgencias. Tomarán una fotografía a la identificación oficial (INE) del paciente y presionarán el botón correspondiente al tipo de emergencia que corresponde con las dolencias del paciente y su urgencia al atenderlas, el POST que se hace dentro de la aplicación servirá a futuro para un GET dentro de una aplicación web que busca ordenar por prioridad de código de llegada a los pacientes, así el paciente más grave se atenderá en la brevedad.
